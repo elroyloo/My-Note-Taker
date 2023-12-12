@@ -36,8 +36,9 @@ app.post('/notes', async (req, res) => {
 
 app.delete('/notes/:id', async (req, res) => {
   const { id } = req.params;
+  const { userId } = req.query;
   try {
-    const noteToDelete = await Note.findOne({ _id: id, userId: req.body.userId });
+    const noteToDelete = await Note.findOne({ _id: id, userId: userId });
     if (!noteToDelete) {
       return res.status(404).json({ message: 'Note not found or user mismatch' });
     }
